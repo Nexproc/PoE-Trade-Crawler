@@ -6,12 +6,15 @@ import asyncio
 import datetime
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
+from websites import POE_ITEM_BASE
+from misc_constants import POE_CURRENCY_COUNT
 
 now = datetime.datetime.now
 
 # We are going to create a class called LinkParser that inherits some
 # methods from HTMLParser which is why it is passed into the definition
 class LinkParser(HTMLParser):
+
 
     # This is a function that HTMLParser normally has
     # but we are adding some functionality to it
@@ -96,18 +99,27 @@ def spider(url, word, maxPages):
     total_time = now() - start
     pprint("Finished in: {} seconds".format(total_time.seconds))
 
-nick = 'http://www.nicktitcombe.com'
-github = 'http://www.github.com'
-poe_item_base = "http://currency.poe.trade/search?league=Perandus&online=&want={}&have=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34"
-all_poe_items = [poe_item_base.format(item_number) for item_number in range(1, 33)]
-poe_trade_full = "http://currency.poe.trade/search?league=Perandus&online=&want=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34&have=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34"
-poe_trade = "http://currency.poe.trade/search?league=Perandus&online=&want=1-2-3-4-5&have=1-2-3-4-5"
+def get_loop_and_executor(executor_size):
+    loop = asyncio.get_event_loop()
+    executor = ProcessPoolExecutor(executor_size)
+    return loop, executor
 
-start = now()
-loop = asyncio.get_event_loop()
-executor = ProcessPoolExecutor(len(all_poe_items))
-tasks = [asyncio.ensure_future(loop.run_in_executor(executor, partial(spider, poe_page, 'Chaos Orb', 1))) for poe_page in all_poe_items]
-loop.run_until_complete(asyncio.wait(tasks))
-loop.close()
-total_time = now() - start
-pprint('Total Time For Async: {} seconds'.format(total_time.seconds))
+def run_tasks_then_close_loop(loop, tasks):
+    loop.run_until_complete(asyncio.wait(tasks))
+    loop.close()
+
+def crawl_all_pages():
+    all_poe_items = [POE_ITEM_BASE.format(item_number) for item_number in range(1, POE_CURRENCY_COUNT)]
+    loop, executor = get_loop_and_executor(len(all_poe_items))
+    tasks = [asyncio.ensure_future(loop.run_in_executor(executor, partial(spider, poe_page, 'Chaos Orb', 1))) for poe_page in all_poe_items]
+    run_tasks_then_close_loop(loop, tasks)
+
+def timed_process(fn):
+    start = now()
+    fn()
+    pprint('Total Time For Async: {} seconds'.format((now() - start).seconds))
+
+def timed_crawl():
+    timed_process(crawl_all_pages)
+
+timed_crawl()
