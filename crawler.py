@@ -1,10 +1,9 @@
 import asyncio
 from pprint import pprint
 from functools import partial
-from link_parser import LinkParser
+from trade_parser import TradeParser
 from websites import POE_ITEM_BASE
 from currencies import POE_CURRENCY_COUNT
-from page_reader import PageReader
 from async_functions import get_loop_and_executor, run_tasks_then_close_loop
 from utils import timed_process
 
@@ -13,10 +12,9 @@ class Crawler:
     trades = []
 
     def retrieve_and_read_page(self, url):
-        parser = LinkParser()
-        reader = PageReader()
-        data = parser.getLinks(url)
-        self.trades += reader.parse_sections(data)
+        parser = TradeParser()
+        parser.getTrades(url)
+        print(parser.trades)
 
 
     def crawl_all_pages(self):
