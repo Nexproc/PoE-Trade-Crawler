@@ -9,3 +9,6 @@ def timed_process(fn):
     start = now()
     fn()
     pprint('Total Time For Async: {} seconds'.format((now() - start).seconds))
+
+def do_nothing(*args, **kwargs):
+    pass

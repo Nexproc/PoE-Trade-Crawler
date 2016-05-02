@@ -1,7 +1,8 @@
 from trade import Trade
 from html.parser import HTMLParser
 from urllib.request import urlopen
-from constants import VALID_CONTENT_TYPES
+from constants import VALID_CONTENT_TYPES, DATA_TAG_TO_TRADE_METHOD
+from utils import do_nothing
 
 # We are going to create a class called TradeParser that inherits some
 # methods from HTMLParser which is why it is passed into the definition
@@ -12,25 +13,16 @@ class TradeParser(HTMLParser):
     # but we are adding some functionality to it
     def handle_starttag(self, tag, attrs):
         trade = None
-
         def get_trade():
             return trade or Trade()
+
         # We are looking for the begining of a trade. Trades normally look like...
         # <div ... data-sellcurrency="#" data-sellvalue="#" data-buycurrency="#" data-buyvalue="#" ... ></div>
         if tag == 'div':
             for (key, value) in attrs:
-                if key == 'data-sellcurrency':
+                if DATA_TAG_TO_TRADE_METHOD.get(key, None) is not None:
                     trade = get_trade()
-                    trade.set_sell_currency(value)
-                if key == 'data-buycurrency':
-                    trade = get_trade()
-                    trade.set_buy_currency(value)
-                if key == 'data-sellvalue':
-                    trade = get_trade()
-                    trade.set_sell_value(value)
-                if key == 'data-buyvalue':
-                    trade = get_trade()
-                    trade.set_buy_value(value)
+                    getattr(trade, DATA_TAG_TO_TRADE_METHOD.get(key), do_nothing)(value)
         if trade:
             trade.set_trade_ratio()
             self.trades.append(trade)
@@ -38,7 +30,6 @@ class TradeParser(HTMLParser):
     # This is a new function that we are creating to get trades
     # that our spider() function will call
     def getTrades(self, url):
-        trades = []
         self.baseUrl = url
         # Use the urlopen function from the standard Python 3 library
         response = urlopen(url)
