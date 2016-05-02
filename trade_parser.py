@@ -13,6 +13,8 @@ class TradeParser(HTMLParser):
     # but we are adding some functionality to it
     def handle_starttag(self, tag, attrs):
         trade = None
+
+        # no need to create a trade object if this tag isn't a trade div
         def get_trade():
             return trade or Trade()
 
