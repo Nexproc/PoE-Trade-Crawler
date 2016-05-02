@@ -15,6 +15,7 @@ class Crawler:
         parser = TradeParser()
         parser.getTrades(url)
         print(parser.trades)
+        # save trades to database here
 
 
     def crawl_all_pages(self):
