@@ -1,5 +1,5 @@
 from decimal import Decimal
-from currencies import CURRENCIES
+from poe_trader.core.constants import CURRENCIES
 
 class Trade:
     sell_currency = None

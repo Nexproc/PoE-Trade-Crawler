@@ -1,0 +1,9 @@
+db:
+    image: postgres:9.5.0
+    hostname: db
+    environment:
+        POSTGRES_DB: poe
+        POSTGRES_USER: poe
+        POSTGRES_PASSWORD: poe
+    ports:
+        - '5432:5432'

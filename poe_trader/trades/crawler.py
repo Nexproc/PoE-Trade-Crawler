@@ -1,11 +1,10 @@
 import asyncio
 from pprint import pprint
 from functools import partial
-from trade_parser import TradeParser
-from websites import POE_ITEM_BASE
-from currencies import POE_CURRENCY_COUNT
-from async_functions import get_loop_and_executor, run_tasks_then_close_loop
-from utils import timed_process
+from poe_trader.trades.trade_parser import TradeParser
+from poe_trader.core.constants import POE_ITEM_BASE, POE_CURRENCY_COUNT
+from poe_trader.core.async_functions import get_loop_and_executor, run_tasks_then_close_loop
+from poe_trader.core.utils import timed_process
 
 
 class Crawler:
@@ -14,7 +13,7 @@ class Crawler:
     def retrieve_and_read_page(self, url):
         parser = TradeParser()
         parser.getTrades(url)
-        print(parser.trades)
+        pprint(parser.trades)
         # save trades to database here
 
 

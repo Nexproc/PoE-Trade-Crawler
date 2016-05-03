@@ -1,8 +1,8 @@
-from trade import Trade
+from poe_trader.trades.trade import Trade
 from html.parser import HTMLParser
 from urllib.request import urlopen
-from constants import VALID_CONTENT_TYPES, DATA_TAG_TO_TRADE_METHOD
-from utils import do_nothing
+from poe_trader.core.constants import VALID_CONTENT_TYPES, DATA_TAG_TO_TRADE_METHOD
+from poe_trader.core.utils import do_nothing
 
 # We are going to create a class called TradeParser that inherits some
 # methods from HTMLParser which is why it is passed into the definition
