@@ -1,16 +1,17 @@
 from django.db import models
 
+class Currency(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True)
+    name = models.CharField(unique=True, max_length=100)
+
 # Create your models here.
 class Trade(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
-    sell_currency = models.ForeignKey()
-    buy_currency = models.ForeignKey()
-    sell_value = models.DecimalValue()
-    buy_value = models.DecimalValue()
-    trade_ratio = models.DecimalValue()
-
-    def __init__(self):
-        pass
+    sell_currency = models.ForeignKey(Currency, related_name='selling_trades')
+    buy_currency = models.ForeignKey(Currency, related_name='buying_trades')
+    sell_value = models.DecimalField(decimal_places=6, max_digits=20)
+    buy_value = models.DecimalField(decimal_places=6, max_digits=20)
+    trade_ratio = models.DecimalField(decimal_places=6, max_digits=20)
 
     def set_sell_currency(self, sell_currency):
         self.sell_currency = sell_currency

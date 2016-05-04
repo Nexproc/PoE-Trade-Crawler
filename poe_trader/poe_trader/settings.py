@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'trades',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,9 +80,9 @@ DOCKER_MACHINE_IP_ADDRESS = '192.168.99.100'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'powertools',
-        'USER': 'powertools',
-        'PASSWORD': 'powertools',
+        'NAME': 'poe',
+        'USER': 'poe',
+        'PASSWORD': 'poe',
         'HOST': DOCKER_MACHINE_IP_ADDRESS,
         'PORT': '5432',
     },
