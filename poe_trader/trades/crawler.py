@@ -5,6 +5,7 @@ from poe_trader.trades.trade_parser import TradeParser
 from poe_trader.core.constants import POE_ITEM_BASE, POE_CURRENCY_COUNT
 from poe_trader.core.async_functions import get_loop_and_executor, run_tasks_then_close_loop
 from poe_trader.core.utils import timed_process
+from poe_trader.trades.models import Trade
 
 
 class Crawler:
@@ -13,8 +14,7 @@ class Crawler:
     def retrieve_and_read_page(self, url):
         parser = TradeParser()
         parser.getTrades(url)
-        pprint(parser.trades)
-        # save trades to database here
+        Trade.objects.bulk_create(parser.trades)
 
 
     def crawl_all_pages(self):

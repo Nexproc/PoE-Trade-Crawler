@@ -1,4 +1,6 @@
 from django.db import models
+from decimal import Decimal
+from core.constants import CURRENCIES
 
 class Currency(models.Model):
     id = models.PositiveSmallIntegerField(primary_key=True)

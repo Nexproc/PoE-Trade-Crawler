@@ -1,4 +1,4 @@
-from poe_trader.trades.trade import Trade
+from poe_trader.trades.models import Trade
 from html.parser import HTMLParser
 from urllib.request import urlopen
 from poe_trader.core.constants import VALID_CONTENT_TYPES, DATA_TAG_TO_TRADE_METHOD
