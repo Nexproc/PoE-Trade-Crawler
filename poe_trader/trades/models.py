@@ -16,10 +16,10 @@ class Trade(models.Model):
     trade_ratio = models.DecimalField(decimal_places=6, max_digits=20)
 
     def set_sell_currency(self, sell_currency):
-        self.sell_currency = sell_currency
+        self.sell_currency_id = sell_currency
 
     def set_buy_currency(self, buy_currency):
-        self.buy_currency = buy_currency
+        self.buy_currency_id = buy_currency
 
     def set_sell_value(self, sell_value):
         self.sell_value = sell_value

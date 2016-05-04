@@ -43,10 +43,10 @@ VALID_CONTENT_TYPES = {
 }
 
 DATA_TAG_TO_TRADE_METHOD = {
-    'data-sellcurrency': 'set_trade_currency',
+    'data-sellcurrency': 'set_sell_currency',
     'data-buycurrency': 'set_buy_currency',
     'data-sellvalue': 'set_sell_value',
-    'data-buyvalue': 'set_buy_value'
+    'data-buyvalue': 'set_buy_value',
 }
 
 NICK = 'http://www.nicktitcombe.com'

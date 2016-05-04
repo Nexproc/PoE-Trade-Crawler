@@ -1,11 +1,11 @@
 import asyncio
 from pprint import pprint
 from functools import partial
-from poe_trader.trades.trade_parser import TradeParser
-from poe_trader.core.constants import POE_ITEM_BASE, POE_CURRENCY_COUNT
-from poe_trader.core.async_functions import get_loop_and_executor, run_tasks_then_close_loop
-from poe_trader.core.utils import timed_process
-from poe_trader.trades.models import Trade
+from trades.trade_parser import TradeParser
+from core.constants import POE_ITEM_BASE, POE_CURRENCY_COUNT
+from core.async_functions import get_loop_and_executor, run_tasks_then_close_loop
+from core.utils import timed_process
+from trades.models import Trade
 
 
 class Crawler:
@@ -27,7 +27,3 @@ class Crawler:
     def timed_crawl(self):
         pprint('start!')
         timed_process(self.crawl_all_pages)
-
-
-crawler = Crawler()
-crawler.timed_crawl()

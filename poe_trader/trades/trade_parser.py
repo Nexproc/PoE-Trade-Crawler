@@ -1,8 +1,8 @@
-from poe_trader.trades.models import Trade
+from trades.models import Trade
 from html.parser import HTMLParser
 from urllib.request import urlopen
-from poe_trader.core.constants import VALID_CONTENT_TYPES, DATA_TAG_TO_TRADE_METHOD
-from poe_trader.core.utils import do_nothing
+from core.constants import VALID_CONTENT_TYPES, DATA_TAG_TO_TRADE_METHOD
+from core.utils import do_nothing
 
 # We are going to create a class called TradeParser that inherits some
 # methods from HTMLParser which is why it is passed into the definition
@@ -18,7 +18,7 @@ class TradeParser(HTMLParser):
         def get_trade():
             return trade or Trade()
 
-        # We are looking for the begining of a trade. Trades normally look like...
+        # We are looking for the beginning of a trade. Trades normally look like...
         # <div ... data-sellcurrency="#" data-sellvalue="#" data-buycurrency="#" data-buyvalue="#" ... ></div>
         if tag == 'div':
             for (key, value) in attrs:
