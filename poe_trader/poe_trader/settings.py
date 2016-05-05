@@ -83,6 +83,7 @@ DATABASES = {
         'NAME': 'poe',
         'USER': 'poe',
         'PASSWORD': 'poe',
+        'HOSTNAME': 'poedb',
         'HOST': DOCKER_MACHINE_IP_ADDRESS,
         'PORT': '5432',
     },

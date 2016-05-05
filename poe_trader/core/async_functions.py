@@ -10,9 +10,11 @@ def process_async_data(fn, list_of_arg_tuples):
 
 def get_loop_and_executor(executor_size):
     loop = asyncio.get_event_loop()
+    if loop.is_closed():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
     executor = ProcessPoolExecutor(executor_size)
     return loop, executor
-
 
 def run_tasks_then_close_loop(loop, tasks):
     loop.run_until_complete(asyncio.wait(tasks))
