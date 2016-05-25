@@ -6,9 +6,12 @@ def now():
     return datetime.datetime.now()
 
 def timed_process(fn):
-    start = now()
-    fn()
-    pprint('Total Time For Async: {} seconds'.format((now() - start).seconds))
+    def decorator(*args):
+        start = now()
+        result = fn(*args)
+        pprint('Total Runtime: {} seconds'.format((now() - start).seconds))
+        return result
+    return decorator
 
 def do_nothing(*args, **kwargs):
     pass

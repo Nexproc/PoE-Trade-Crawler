@@ -16,14 +16,9 @@ class Crawler:
         parser.getTrades(url)
         Trade.objects.bulk_create(parser.trades)
 
-
+    @timed_process
     def crawl_all_pages(self):
         all_poe_items = [POE_ITEM_BASE.format(item_number) for item_number in range(1, POE_CURRENCY_COUNT + 1)]
         loop, executor = get_loop_and_executor(len(all_poe_items))
         tasks = [asyncio.ensure_future(loop.run_in_executor(executor, partial(self.retrieve_and_read_page, poe_page))) for poe_page in all_poe_items]
         run_tasks_then_close_loop(loop, tasks)
-
-
-    def timed_crawl(self):
-        pprint('start!')
-        timed_process(self.crawl_all_pages)
