@@ -5,3 +5,4 @@ __pycache__/**
 **/*.pyc
 **.pyc
 poe_trader/poetrade/
+node_dependencies/
