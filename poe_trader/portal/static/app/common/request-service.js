@@ -4,8 +4,12 @@
 poeTrade.factory('Request', ["TradeApi", function (TradeApi) {
     const request = {};
 
-    request.getAllTrades = function (tradeId) {
-        return TradeApi.one('trade', tradeId).get()
+    request.getOneTrade = function (tradeId) {
+        return TradeApi.one('trades', tradeId).get();
+    };
+
+    request.getAllTrades = function () {
+        return TradeApi.one('trades').get();
     };
 
     return request;

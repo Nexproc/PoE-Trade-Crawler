@@ -18,8 +18,9 @@ poeTrade.factory('TradeApi', ["Restangular", function (Restangular) {
 }]);
 
 
-poeTrade.run(["Restangular", function (Restangular) {
+poeTrade.run(['$window', "Restangular", "Request", function ($window, Restangular, Request) {
     Restangular.setDefaultHeaders({
         'Content-Type': 'application/json'
     });
+    $window.myrequest = Request;
 }]);

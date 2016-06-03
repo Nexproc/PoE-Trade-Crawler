@@ -21,7 +21,7 @@ from trades.views import TradeViewSet
 from portal.views import landing
 
 router = routers.DefaultRouter()
-router.register(r'trade', TradeViewSet)
+router.register(r'trades', TradeViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
