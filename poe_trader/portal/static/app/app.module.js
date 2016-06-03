@@ -10,16 +10,16 @@ poeTrade.config(['$httpProvider', function ($httpProvider) {
 
 }]);
 
-poeTrade.config(["RestangularProvider", function (RestangularProvider) {
-    RestangularProvider.setBaseUrl('/api/v1');
-    RestangularProvider.setRequestSuffix(('/'));
+poeTrade.factory('TradeApi', ["Restangular", function (Restangular) {
+    return Restangular.withConfig(function (RestangularConfigurer) {
+        RestangularConfigurer.setBaseUrl('/api/');
+        RestangularConfigurer.setRequestSuffix(('/'));
+    });
 }]);
 
 
-poeTrade.run(['$window', "Restangular", function ($window, Restangular) {
+poeTrade.run(["Restangular", function (Restangular) {
     Restangular.setDefaultHeaders({
         'Content-Type': 'application/json'
     });
 }]);
-
-console.log('hey')
