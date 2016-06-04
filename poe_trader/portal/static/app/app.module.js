@@ -1,7 +1,7 @@
 /**
  * Created by Nick on 6/3/16.
  */
-var poeTrade = angular.module('poeTradeApp', ['restangular']);
+var poeTrade = angular.module('poeTradeApp', ['restangular', 'ui.router']);
 
 poeTrade.config(['$httpProvider', function ($httpProvider) {
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -18,9 +18,8 @@ poeTrade.factory('TradeApi', ["Restangular", function (Restangular) {
 }]);
 
 
-poeTrade.run(['$window', "Restangular", "Request", function ($window, Restangular, Request) {
+poeTrade.run(['$window', "Restangular", function ($window, Restangular) {
     Restangular.setDefaultHeaders({
         'Content-Type': 'application/json'
     });
-    $window.myrequest = Request;
 }]);

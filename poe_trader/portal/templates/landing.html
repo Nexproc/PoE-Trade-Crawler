@@ -5,24 +5,24 @@
     <base href="/">
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" media="all" href="{% static "assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" %}" />
-    <link rel="stylesheet" type="text/css" media="all" href="{% static "assets/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" %}" />
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="all" href="{% static "assets/bootstrap-3.3.6-dist/css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{% static "assets/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" %}"/>
 
     <script type="text/javascript">var CONFIG = {IS_DEBUG: {% if debug %}true{% else %}false{% endif %}};</script>
     <!------ Bower Components ------>
+    <!-- Angular -->
+    <script src="{% static "assets/javascript/angular-1.5.6.js" %}"></script>
     <!-- jQuery -->
     <script src="{% static "assets/javascript/jquery-2.2.4.min.js" %}"></script>
     <!-- HighCharts -->
     <!-- Bootstrap -->
     <script src="{% static "assets/bootstrap-3.3.6-dist/js/bootstrap.min.js" %}"></script>
-    <!-- Angular -->
-    <script src="{% static "assets/javascript/angular-1.5.6.js" %}"></script>
     <!-- Angular Bootstrap -->
     <!-- Angular Modules-->
+    <script src="{% static "assets/javascript/angular-ui-router.min.js" %}"></script>
     <script src="{% static "assets/javascript/angular-route.js" %}"></script>
     <!-- Restangular & Underscore -->
-    <script src="{% static "assets/javascript/underscore-min.js" %}"></script>
+    <script src="{% static "assets/javascript/underscore.min.js" %}"></script>
     <script src="{% static "assets/javascript/restangular.js" %}"></script>
     <!------ Vendor Files ------>
     <!------ Project Files ----->
@@ -32,6 +32,7 @@
     <script src="{% static "app/common/request-service.js" %}"></script>
     <!-- Controllers -->
     <!-- Directives -->
+    <script src="{% static "app/components/home-page/home-page-directive.js" %}"></script>
     <!-- Filters -->
     {% block extra_js %}{% endblock %}
 
@@ -39,10 +40,7 @@
 </head>
 
 <body>
-    <h1>Hey</h1>
-    <!--[if gte IE 8]><!-->
     <ui-view class="viewContainer"></ui-view>
-    <!--<![endif]-->
 </body>
 
 </html>
