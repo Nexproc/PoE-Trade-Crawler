@@ -1,0 +1,8 @@
+<!--League Dropdown-->
+<!--Currency #1 Dropdown-->
+<select ng-model="buyCurrency" ng-options="currency.name for currency in currencies track by currency.id" ng-change="switchCurrency()"></select>
+<!--Currency #2 Dropdown-->
+<select ng-model="sellCurrency" ng-options="currency.name for currency in currencies track by currency.id" ng-change="switchCurrency()"></select>
+<h2 ng-bind="cardDetails"></h2>
+<!--Graph-->
+<section id="{{ ::cardId }}" class="graph"></section>

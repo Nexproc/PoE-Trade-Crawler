@@ -1,9 +1,7 @@
 """poe_trader URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.8/topics/http/urls/
-Examples:
-Function views
+zz                                                                    z             zzFunction views
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
 Class-based views
@@ -17,11 +15,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework import routers
-from trades.views import TradeViewSet
+from trades.views import TradeViewSet, CurrencyViewSet
 from portal.views import landing
 
 router = routers.DefaultRouter()
 router.register(r'trades', TradeViewSet)
+router.register(r'currencies', CurrencyViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),

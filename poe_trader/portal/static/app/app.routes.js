@@ -10,8 +10,8 @@ poeTrade.config(['$stateProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
 
 
     $stateProvider
-        .state('main', {
-            url: '/',
+        .state('home', {
+            url: '/home',
             template: '<home-page></home-page>',
             data: {
                 pageTitle: 'HomePage'
@@ -20,5 +20,5 @@ poeTrade.config(['$stateProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
     ;
 
     // default route
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/home');
 }]);

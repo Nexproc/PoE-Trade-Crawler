@@ -1,3 +1,11 @@
-<h1 ng-bind="trade.buy_currency_name"></h1>
-<h2 ng-bind="trade.sell_currency_name"></h2>
-<input type="text" ng-model="tradeId" ng-change="getCurrentTrade(tradeId)">
+<h1 class="col-xs-12">PoE Trade Ninja</h1>
+<section class="graphs col-xs-12">
+    <graph-card class="col-xs-12 col-md-6 panel panel-default" ng-repeat="graph in graphs"></graph-card>
+    <div class="col-xs-12 col-md-6">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4 btn btn-default" ng-click="addGraph()">
+            <i class="glyphicon glyphicon-plus fa-5x"></i>
+        </div>
+        <div class="col-xs-4"></div>
+    </div>
+</section>

@@ -1,10 +1,14 @@
 from django.db import models
+from django.db.models import Min, Max, Avg
 from decimal import Decimal
 from core.constants import CURRENCIES
+from datetime import timedelta
+
 
 class Currency(models.Model):
     id = models.PositiveSmallIntegerField(primary_key=True)
     name = models.CharField(unique=True, max_length=100)
+
 
 # Create your models here.
 class Trade(models.Model):
@@ -28,7 +32,7 @@ class Trade(models.Model):
         self.buy_value = buy_value
 
     def set_trade_ratio(self):
-        self.trade_ratio = Decimal(self.sell_value)/Decimal(self.buy_value)
+        self.trade_ratio = Decimal(self.sell_value) / Decimal(self.buy_value)
 
     def stringify_and_print(self):
         print("Sell Currency: {}".format(CURRENCIES[int(self.sell_currency)]))
@@ -36,6 +40,44 @@ class Trade(models.Model):
         print("Buy Currency: {}".format(CURRENCIES[int(self.buy_currency)]))
         print("Buy Value: {}".format(self.buy_value))
         print("Trade Ratio: {}".format(self.trade_ratio))
+
+    @classmethod
+    def trades_in_past_hour(cls, date, queryset=None):
+        queryset = queryset if queryset else cls.objects
+        return queryset.filter(
+            created__lt=date,
+            created__gte=(date - timedelta(hours=1)),
+        )
+
+    @classmethod
+    def trades_in_past_day(cls, date, queryset=None):
+        queryset = queryset if queryset else cls.objects
+        return queryset.filter(
+            created__lt=date,
+            created__gte=(date - timedelta(days=1)),
+        )
+
+    @classmethod
+    def trades_between_currencies(cls, buy_currency_id, sell_currency_id, queryset=None):
+        queryset = queryset if queryset else cls.objects
+        return queryset.filter(
+            buy_currency_id=buy_currency_id,
+            sell_currency_id=sell_currency_id,
+        )
+
+    # this method assumes that you've done th other filtering yourself (currency, dates, etc)
+    @classmethod
+    def get_highest_average_and_lowest_trade(cls, queryset):
+        values_args = [
+            'minimum_ratio',
+            'average_ratio',
+            'maximum_ratio',
+        ]
+        return queryset.aggregate(
+            minimum_ratio=Min('trade_ratio'),
+            maximum_ratio=Max('trade_ratio'),
+            average_ratio=Avg('trade_ratio'),
+        )
 
     def __repr__(self):
         return '<{}:{} {}>'.format(self.__class__.__name__, self.pk, str(self))

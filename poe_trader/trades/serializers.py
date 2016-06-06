@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from trades.models import Trade
+from trades.models import Trade, Currency
 
 class TradeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,3 +23,12 @@ class TradeSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_buy_currency_name(obj):
         return obj.buy_currency.name
+
+
+class CurrencySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Currency
+        fields = (
+            'id',
+            'name',
+        )

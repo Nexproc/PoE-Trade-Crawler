@@ -12,5 +12,39 @@ poeTrade.factory('Request', ["TradeApi", function (TradeApi) {
         return TradeApi.one('trades').get();
     };
 
+    request.getAllCurrencies = function () {
+        return TradeApi.one('currencies').get();
+    };
+
+    request.getTradesForHour = function (buyCurrencyId, sellCurrencyId, date) {
+        return TradeApi
+            .one('trades')
+            .one('trades_in_date_range')
+            .get({
+                startDate: date.toJSON(),
+                rangeType: 'hour',
+                buyCurrencyId: buyCurrencyId,
+                sellCurrencyId: sellCurrencyId
+            })
+    };
+
+    request.getTradesForDay = function (buyCurrencyId, sellCurrencyId, date) {
+        return TradeApi
+            .one('trades')
+            .one('trades_in_date_range')
+            .get({
+                startDate: date.toJSON(),
+                rangeType: 'day',
+                buyCurrencyId: buyCurrencyId,
+                sellCurrencyId: sellCurrencyId
+            })
+            .then(function(response){
+                console.log(response);
+                return response;
+            })
+    };
+
+    getDay = request.getTradesForDay;
+
     return request;
 }]);

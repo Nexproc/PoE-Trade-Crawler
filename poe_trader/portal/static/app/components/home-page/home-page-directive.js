@@ -6,14 +6,19 @@ poeTrade.directive('homePage', function () {
         restrict: 'E',
         scope: {},
         templateUrl: '/portal/static/app/components/home-page/home-page.html',
-        controller: ["$scope", 'Request', function ($scope, Request) {
+        controller: ["$scope", 'Trade', function ($scope, Trade) {
             $scope.trade = {};
             $scope.tradeId = 1;
+            $scope.graphs = [];
 
             $scope.getCurrentTrade = function (tradeId) {
-                Request.getOneTrade(tradeId).then(function (response) {
+                Trade.getOneTrade(tradeId).then(function (response) {
                     $scope.trade = response.plain();
                 });
+            };
+
+            $scope.addGraph = function(){
+                $scope.graphs.push((($scope.graphs[$scope.graphs.length - 1] || 0) + 1));
             };
 
             (function init() {
