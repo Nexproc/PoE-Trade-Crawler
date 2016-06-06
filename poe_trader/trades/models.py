@@ -9,6 +9,35 @@ class Currency(models.Model):
     id = models.PositiveSmallIntegerField(primary_key=True)
     name = models.CharField(unique=True, max_length=100)
 
+    @classmethod
+    def update_lookup_table(cls):
+        old_currencies = cls.objects.values_list('id', 'name')
+        old_currencies_lookup = {name: id for id, name in old_currencies}
+
+        for new_id, name in CURRENCIES.items():
+            currency, _ = cls.objects.get_or_create(
+                id=new_id,
+            )
+
+            currency.name = name
+            currency.save()
+
+            old_buys = Trade.objects.select_related(
+                'buy_currency',
+            ).filter(
+                buy_currency_id=old_currencies_lookup.get(name),
+            ).update(
+                buy_currency_id=new_id,
+            )
+
+            old_sales = Trade.objects.select_related(
+                'sell_currency',
+            ).filter(
+                sell_currency_id=old_currencies_lookup.get(name),
+            ).update(
+                sell_currency_id=new_id,
+            )
+
 
 # Create your models here.
 class Trade(models.Model):

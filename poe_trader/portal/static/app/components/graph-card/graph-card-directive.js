@@ -15,6 +15,7 @@ poeTrade.directive('graphCard', function () {
             $scope.currencies = [];
             $scope.buyCurrency = {};
             $scope.sellCurrency = {};
+            $scope.currencyId2Name = {};
             $scope.categories = [];
             $scope.tradeValues = {
                 low: [],
@@ -58,7 +59,7 @@ poeTrade.directive('graphCard', function () {
                         renderTo: $scope.cardId
                     },
                     title: {
-                        text: 'Graph Title',
+                        text: 'Buying ' + $scope.sellCurrency.name + ' with ' + $scope.buyCurrency.name,
                         x: -20
                     },
                     subTitle: {
@@ -69,7 +70,7 @@ poeTrade.directive('graphCard', function () {
                     },
                     yAxis: {
                         title: {
-                            text: 'Y-Axis Title'
+                            text: $scope.sellCurrency.name + 's to buy one ' + $scope.buyCurrency.name
                         },
                         plotLines: [{
                             value: 0,
@@ -78,7 +79,7 @@ poeTrade.directive('graphCard', function () {
                         }]
                     },
                     tooltip: {
-                        valueSuffix: $scope.buyCurrency.name + " per " + $scope.sellCurrency.name
+                        valueSuffix: ' ' + $scope.sellCurrency.name + 's per ' + $scope.buyCurrency.name
                     },
                     legend: {
                         layout: 'vertical',
@@ -153,6 +154,8 @@ poeTrade.directive('graphCard', function () {
                     tradeRequests.push(Trade.getTradesForHour($scope.buyCurrency.id, $scope.sellCurrency.id, nextDate));
                 }
                 // TODO: populate hours and generate graph after data is fetched
+                tradeRequests.reverse();
+                $scope.categories.reverse();
                 $q.all(tradeRequests).then($scope.populateGraphData);
             };
 
@@ -165,11 +168,15 @@ poeTrade.directive('graphCard', function () {
                     };
                     $scope.currencies = response.plain();
                     $scope.sellCurrency = $scope.buyCurrency = $scope.currencies[0];
+                    $scope.currencyId2Name = {};
+                    _.each($scope.currencies, function(currency) {
+                        $scope.currencyId2Name[currency.id] = currency.name;
+                    });
                     $scope.getHourTradesForDay();
                 });
             })();
 
-            $scope.switchCurrency = function (currency) {
+            $scope.switchCurrency = function () {
                 $scope.tradeValues = {
                     low: [],
                     average: [],
