@@ -42,41 +42,34 @@ class Trade(models.Model):
         print("Trade Ratio: {}".format(self.trade_ratio))
 
     @classmethod
-    def trades_in_past_hour(cls, date, queryset=None):
-        queryset = queryset if queryset else cls.objects
+    def trades_in_past_hour(cls, date, queryset):
         return queryset.filter(
             created__lt=date,
             created__gte=(date - timedelta(hours=1)),
         )
 
     @classmethod
-    def trades_in_past_day(cls, date, queryset=None):
-        queryset = queryset if queryset else cls.objects
+    def trades_in_past_day(cls, date, queryset):
         return queryset.filter(
             created__lt=date,
             created__gte=(date - timedelta(days=1)),
         )
 
     @classmethod
-    def trades_between_currencies(cls, buy_currency_id, sell_currency_id, queryset=None):
-        queryset = queryset if queryset else cls.objects
+    def trades_between_currencies(cls, buy_currency_id, sell_currency_id, queryset):
+        # this method assumes that you've already created a queryset
         return queryset.filter(
             buy_currency_id=buy_currency_id,
             sell_currency_id=sell_currency_id,
         )
 
-    # this method assumes that you've done th other filtering yourself (currency, dates, etc)
     @classmethod
     def get_highest_average_and_lowest_trade(cls, queryset):
-        values_args = [
-            'minimum_ratio',
-            'average_ratio',
-            'maximum_ratio',
-        ]
+        # this method assumes that you've done the other filtering yourself (currency, dates, etc)
         return queryset.aggregate(
-            minimum_ratio=Min('trade_ratio'),
-            maximum_ratio=Max('trade_ratio'),
-            average_ratio=Avg('trade_ratio'),
+            low=Min('trade_ratio'),
+            high=Max('trade_ratio'),
+            average=Avg('trade_ratio'),
         )
 
     def __repr__(self):

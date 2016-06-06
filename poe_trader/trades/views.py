@@ -21,7 +21,11 @@ class TradeViewSet(viewsets.ModelViewSet):
         start_date = datetime.strptime(request.query_params.get('startDate'), '%Y-%m-%dT%H:%M:%S.%fZ')
         # day or hour
         range_type = request.query_params.get('rangeType')
-        trade_queryset = getattr(Trade, 'trades_in_past_{}'.format(range_type))(date=start_date)
+        trade_queryset = Trade.objects.all()
+        trade_queryset = getattr(Trade, 'trades_in_past_{}'.format(range_type))(
+            date=start_date,
+            queryset=trade_queryset,
+        )
         trade_queryset = Trade.trades_between_currencies(
             buy_currency_id=request.query_params.get('buyCurrencyId'),
             sell_currency_id=request.query_params.get('sellCurrencyId'),

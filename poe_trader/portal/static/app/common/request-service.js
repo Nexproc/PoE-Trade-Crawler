@@ -25,7 +25,7 @@ poeTrade.factory('Request', ["TradeApi", function (TradeApi) {
                 rangeType: 'hour',
                 buyCurrencyId: buyCurrencyId,
                 sellCurrencyId: sellCurrencyId
-            })
+            });
     };
 
     request.getTradesForDay = function (buyCurrencyId, sellCurrencyId, date) {
@@ -37,14 +37,8 @@ poeTrade.factory('Request', ["TradeApi", function (TradeApi) {
                 rangeType: 'day',
                 buyCurrencyId: buyCurrencyId,
                 sellCurrencyId: sellCurrencyId
-            })
-            .then(function(response){
-                console.log(response);
-                return response;
-            })
+            });
     };
-
-    getDay = request.getTradesForDay;
 
     return request;
 }]);

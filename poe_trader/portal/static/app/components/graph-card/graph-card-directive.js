@@ -18,7 +18,7 @@ poeTrade.directive('graphCard', function () {
             $scope.categories = [];
             $scope.tradeValues = {
                 low: [],
-                medium: [],
+                average: [],
                 high: []
             };
             const months = [
@@ -50,47 +50,6 @@ poeTrade.directive('graphCard', function () {
                 'am',
                 'pm'
             ];
-
-
-            $scope.getDayTradesForWeek = function () {
-                $scope.categories = [];
-                var tradeRequests = [];
-                var now = new Date();
-                for (var i = 0; i < 7; i++) {
-                    var nextDate = new Date();
-                    nextDate.setDate(now.getDate() - i);
-                    tradeRequests.push(Trade.getTradesForDay($scope.buyCurrency.id, $scope.sellCurrency.id, nextDate));
-                }
-                $q.all(tradeRequests);
-                // TODO: write callback function to populate days and hours
-            };
-
-            $scope.getDayTradesForMonth = function () {
-                $scope.categories = [];
-                var tradeRequests = [];
-                var now = new Date();
-                var daysInMonth = (new Date(now.getYear(), now.getMonth(), 0)).getDate;
-                for (var i = 0; i < daysInMonth; i++) {
-                    var nextDate = new Date();
-                    nextDate.setDate(now.getDate() - i);
-                    tradeRequests.push(Trade.getTradesForDay($scope.buyCurrency.id, $scope.sellCurrency.id, nextDate));
-                }
-                $q.all(tradeRequests);
-            };
-
-            $scope.getHourTradesForDay = function () {
-                $scope.categories = [];
-                var tradeRequests = [];
-                var now = new Date();
-                for (var i = 0; i < 24; i++) {
-                    var nextDate = new Date();
-                    nextDate.setHours(now.getHours() - i);
-                    $scope.categories.push('' + (nextDate.getHours() % 12) + amOrPm[Math.floor(nextDate.getHours()/2)]);
-                    tradeRequests.push(Trade.getTradesForHour($scope.buyCurrency.id, $scope.sellCurrency.id, nextDate));
-                }
-                // TODO: populate hours and generate graph after data is fetched
-                $q.all(tradeRequests);
-            };
 
             $scope.drawGraph = function () {
                 new Highcharts.Chart({
@@ -129,32 +88,94 @@ poeTrade.directive('graphCard', function () {
                     },
                     series: [
                         {
-                            name: 'low',
+                            name: 'Low',
                             data: $scope.tradeValues.low
                         },
                         {
-                            name: 'med',
-                            data: $scope.tradeValues.med
+                            name: 'Average',
+                            data: $scope.tradeValues.average
                         },
                         {
-                            name: 'high',
+                            name: 'High',
                             data: $scope.tradeValues.high
                         }
                     ]
                 });
             };
 
+            $scope.populateGraphData = function (requests) {
+                _.each(requests, function (request) {
+                    var plain_request = request.plain();
+                    _.each(Object.keys($scope.tradeValues), function (key) {
+                        $scope.tradeValues[key].push(plain_request[key])
+                    })
+                });
+                $scope.drawGraph();
+            };
+
+
+            $scope.getDayTradesForWeek = function () {
+                $scope.categories = [];
+                var tradeRequests = [];
+                var now = new Date();
+                for (var i = 0; i < 7; i++) {
+                    var nextDate = new Date();
+                    nextDate.setDate(now.getDate() - i);
+                    tradeRequests.push(Trade.getTradesForDay($scope.buyCurrency.id, $scope.sellCurrency.id, nextDate));
+                }
+                $q.all(tradeRequests);
+                // TODO: write callback function to populate days and hours
+            };
+
+            $scope.getDayTradesForMonth = function () {
+                $scope.categories = [];
+                var tradeRequests = [];
+                var now = new Date();
+                var daysInMonth = (new Date(now.getYear(), now.getMonth(), 0)).getDate;
+                for (var i = 0; i < daysInMonth; i++) {
+                    var nextDate = new Date();
+                    nextDate.setDate(now.getDate() - i);
+                    tradeRequests.push(Trade.getTradesForDay($scope.buyCurrency.id, $scope.sellCurrency.id, nextDate));
+                }
+                $q.all(tradeRequests);
+            };
+
+            $scope.getHourTradesForDay = function () {
+                $scope.categories = [];
+                var tradeRequests = [];
+                var now = new Date();
+                for (var i = 0; i < 24; i++) {
+                    var nextDate = new Date();
+                    nextDate.setHours(now.getHours() - i);
+                    var hourOfDay = nextDate.getHours() % 12 || 12;
+                    var morningOrAfternoon = amOrPm[Math.floor((nextDate.getHours() % 24) / 12)];
+                    $scope.categories.push('' + hourOfDay + morningOrAfternoon);
+                    tradeRequests.push(Trade.getTradesForHour($scope.buyCurrency.id, $scope.sellCurrency.id, nextDate));
+                }
+                // TODO: populate hours and generate graph after data is fetched
+                $q.all(tradeRequests).then($scope.populateGraphData);
+            };
+
             (function init() {
                 Currency.getAllCurrencies().then(function (response) {
+                    $scope.tradeValues = {
+                        low: [],
+                        average: [],
+                        high: []
+                    };
                     $scope.currencies = response.plain();
                     $scope.sellCurrency = $scope.buyCurrency = $scope.currencies[0];
-                    $scope.drawGraph();
+                    $scope.getHourTradesForDay();
                 });
             })();
 
-            $scope.switchCurrency = function () {
-                console.log($scope.sellCurrency);
-                return true
+            $scope.switchCurrency = function (currency) {
+                $scope.tradeValues = {
+                    low: [],
+                    average: [],
+                    high: []
+                };
+                $scope.getHourTradesForDay();
             }
         }]
     };

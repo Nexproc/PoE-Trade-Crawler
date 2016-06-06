@@ -4,12 +4,12 @@
 poeTrade.factory('Trade', ['Request', function (Request) {
     const trade = {};
 
-    trade.getTradesForHour = function (buyCurrencyId, sellCurrencyId, time) {
-        return Request.getTradesForHour(buyCurrencyId, sellCurrencyId, time);
+    trade.getTradesForHour = function (buyCurrencyId, sellCurrencyId, date) {
+        return Request.getTradesForHour(buyCurrencyId, sellCurrencyId, date);
     };
 
-    trade.getTradesForDay = function (buyCurrencyId, sellCurrencyId, time) {
-        return Request.getTradesForDay(buyCurrencyId, sellCurrencyId, time);
+    trade.getTradesForDay = function (buyCurrencyId, sellCurrencyId, date) {
+        return Request.getTradesForDay(buyCurrencyId, sellCurrencyId, date);
     };
 
     trade.getOneTrade = function (tradeId) {
