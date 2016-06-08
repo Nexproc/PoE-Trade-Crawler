@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dj_database_url',
     'rest_framework',
     'trades',
     'portal',
@@ -94,8 +95,8 @@ DOCKER_MACHINE_IP_ADDRESS = '192.168.1.100'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'poe',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'poe',
         # 'USER': 'poe',
         # 'PASSWORD': 'poe',
         # 'HOSTNAME': 'localhost',
