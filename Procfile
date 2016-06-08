@@ -1,1 +1,1 @@
-web: python3 poe_trader/manage.py runserver
+web: python3 manage.py runserver
