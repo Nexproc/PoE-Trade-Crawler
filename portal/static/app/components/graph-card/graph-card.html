@@ -1,9 +1,11 @@
-<!--League Dropdown-->
-<!--Currency #1 Dropdown-->
-<label for="buyCurrency">Currency you Have</label>
-<select id="buyCurrency" ng-model="buyCurrency" ng-options="currency.name for currency in currencies track by currency.id" ng-change="switchCurrency()"></select>
-<!--Currency #2 Dropdown-->
-<label for="buyCurrency">Currency you Want</label>
-<select id="sellCurrency" ng-model="sellCurrency" ng-options="currency.name for currency in currencies track by currency.id" ng-change="switchCurrency()"></select>
-<!--Graph-->
-<section id="{{ ::cardId }}" class="graph"></section>
+<div class="panel clearfix graph-panel">
+    <!--League Dropdown-->
+    <!--Currency #1 Dropdown-->
+    <label for="buyCurrency">Currency you Have</label>
+    <select id="buyCurrency" ng-model="buyCurrency" ng-options="currency.name for currency in currencies track by currency.id" ng-change="switchCurrency()"></select>
+    <!--Currency #2 Dropdown-->
+    <label for="buyCurrency">Currency you Want</label>
+    <select id="sellCurrency" ng-model="sellCurrency" ng-options="currency.name for currency in currencies track by currency.id" ng-change="switchCurrency()"></select>
+    <!--Graph-->
+    <section id="{{ ::cardId }}" class="graph"></section>
+</div>
