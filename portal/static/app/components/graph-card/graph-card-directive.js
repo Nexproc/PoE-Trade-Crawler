@@ -69,7 +69,7 @@ poeTrade.directive('graphCard', function () {
                     },
                     yAxis: {
                         title: {
-                            text: $scope.sellCurrency.name + 's to buy one ' + $scope.buyCurrency.name
+                            text: $scope.sellCurrency.name + 's for one ' + $scope.buyCurrency.name
                         },
                         plotLines: [{
                             value: 0,
