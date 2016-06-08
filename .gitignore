@@ -6,4 +6,4 @@ __pycache__/**
 **.pyc
 poe_trader/poetrade/
 node_dependencies/
-static/
+/static/

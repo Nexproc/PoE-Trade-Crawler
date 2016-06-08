@@ -7,23 +7,12 @@ poeTrade.directive('homePage', function () {
         scope: {},
         templateUrl: '/portal/static/app/components/home-page/home-page.html',
         controller: ["$scope", 'Trade', function ($scope, Trade) {
-            $scope.trade = {};
-            $scope.tradeId = 1;
             $scope.graphs = [];
-
-            $scope.getCurrentTrade = function (tradeId) {
-                Trade.getOneTrade(tradeId).then(function (response) {
-                    $scope.trade = response.plain();
-                });
-            };
 
             $scope.addGraph = function(){
                 $scope.graphs.push((($scope.graphs[$scope.graphs.length - 1] || 0) + 1));
             };
 
-            (function init() {
-                $scope.getCurrentTrade($scope.tradeId);
-            })();
         }]
     };
 });
