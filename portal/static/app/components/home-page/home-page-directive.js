@@ -5,7 +5,7 @@ poeTrade.directive('homePage', function () {
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: '/static/app/components/home-page/home-page.html',
+        templateUrl: '/portal/static/app/components/home-page/home-page.html',
         controller: ["$scope", 'Trade', function ($scope, Trade) {
             $scope.graphs = [];
 

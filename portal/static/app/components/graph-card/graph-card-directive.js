@@ -6,12 +6,11 @@ poeTrade.directive('graphCard', function () {
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: '/static/app/components/graph-card/graph-card.html',
+        templateUrl: '/portal/static/app/components/graph-card/graph-card.html',
         link: function (scope) {
             scope.cardId = 'graph' + runningGraphIds++;
         },
         controller: ['$scope', '$timeout', '$q', 'Currency', 'Trade', function ($scope, $timeout, $q, Currency, Trade) {
-            $scope.cardDetails = "I'm a graph card.";
             $scope.currencies = [];
             $scope.buyCurrency = {};
             $scope.sellCurrency = {};
