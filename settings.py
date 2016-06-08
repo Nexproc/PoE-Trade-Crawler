@@ -62,7 +62,7 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
-ROOT_URLCONF = 'poe_trader.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
