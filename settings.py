@@ -93,20 +93,20 @@ WSGI_APPLICATION = 'wsgi.application'
 # DOCKER_MACHINE_IP_ADDRESS = '192.168.1.100'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'poe',
-        'USER': 'poe',
-        'PASSWORD': 'poe',
-        'HOSTNAME': 'localhost',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'poe',
+    #     'USER': 'poe',
+    #     'PASSWORD': 'poe',
+    #     'HOSTNAME': 'localhost',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432',
+    # },
 }
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config()
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
