@@ -1,7 +1,11 @@
 appnope==0.1.0
 backports.shutil-get-terminal-size==1.0.0
 decorator==4.0.9
+dj-database-url==0.4.1
 Django==1.9.6
+djangorestframework==3.3.3
+djangorestframework-bulk==0.2.1
+djangorestframework-recursive==0.1.1
 gnureadline==6.3.3
 ipython==4.2.0
 ipython-genutils==0.1.0
@@ -18,6 +22,3 @@ traitlets==4.2.1
 virtualenv==15.0.1
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.7.1
-djangorestframework==3.3.3
-djangorestframework-bulk==0.2.1
-djangorestframework-recursive==0.1.1
