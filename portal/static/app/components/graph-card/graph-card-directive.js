@@ -6,7 +6,7 @@ poeTrade.directive('graphCard', function () {
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: '/portal/static/app/components/graph-card/graph-card.html',
+        templateUrl: '/static/app/components/graph-card/graph-card.html',
         link: function (scope) {
             scope.cardId = 'graph' + runningGraphIds++;
         },
