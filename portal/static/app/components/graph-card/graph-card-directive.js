@@ -55,7 +55,8 @@ poeTrade.directive('graphCard', function () {
                 new Highcharts.Chart({
                     chart: {
                         type: 'line',
-                        renderTo: $scope.cardId
+                        renderTo: $scope.cardId,
+                        backgroundColor: '#fbfbfb'
                     },
                     title: {
                         text: 'Buying ' + $scope.sellCurrency.name + ' with ' + $scope.buyCurrency.name,
