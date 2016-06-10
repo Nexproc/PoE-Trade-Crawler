@@ -30,9 +30,16 @@ body {
     background-color: #fbfbfb;
 }
 
+@media only screen and (min-device-width: 480px) {
+    /* define desktop styles*/
+    .centered-square {
+        height: 40%;
+        top: 30%;
+    }
+}
+
 @media only screen and (max-device-width: 480px) {
     /* define mobile styles*/
-
     .centered-square {
         height: 20%;
         top: 40%;
