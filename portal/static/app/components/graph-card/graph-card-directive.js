@@ -199,9 +199,14 @@ poeTrade.directive('graphCard', function () {
                         high: []
                     };
                     $scope.currencies = response.plain();
-                    $scope.sellCurrency = $scope.buyCurrency = $scope.currencies[0];
                     $scope.currencyId2Name = {};
+                    // defaults to trading Silver Coins for Chaos Orbs
                     _.each($scope.currencies, function(currency) {
+                        if (currency.name === 'Silver Coin') {
+                            $scope.buyCurrency = currency;
+                        } else if (currency.name === 'Chaos Orb') {
+                            $scope.sellCurrency = currency;
+                        }
                         $scope.currencyId2Name[currency.id] = currency.name;
                     });
                     $scope.getHourTradesForDay();
