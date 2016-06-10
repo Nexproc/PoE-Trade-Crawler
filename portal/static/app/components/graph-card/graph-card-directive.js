@@ -128,7 +128,7 @@ poeTrade.directive('graphCard', function () {
                             arr.push(0);
                             return arr;
                         }
-                        arr.push(previousValue - lowValue);
+                        arr.push(lowValue - previousValue);
                         previousValue = lowValue;
                         return arr;
                     },
