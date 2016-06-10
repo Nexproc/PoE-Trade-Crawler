@@ -83,10 +83,9 @@ poeTrade.directive('graphCard', function () {
                         valueSuffix: ' ' + $scope.sellCurrency.name + 's per ' + $scope.buyCurrency.name
                     },
                     legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle',
-                        borderWidth: 0
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal',
                     },
                     series: [
                         {
