@@ -9,16 +9,11 @@ body {
 }
 
 .graph {
-    width: 90%;
+    width: 100%;
 }
 
 .plus-button {
     height: 447px;
-}
-
-.centered-square {
-    height: 40%;
-    top: 30%;
 }
 
 .flat-raised-card {
@@ -43,5 +38,9 @@ body {
     .centered-square {
         height: 20%;
         top: 40%;
+    }
+
+    .graph {
+        height: 490px;
     }
 }
