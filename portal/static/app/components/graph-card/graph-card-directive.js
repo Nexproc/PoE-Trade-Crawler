@@ -16,6 +16,7 @@ poeTrade.directive('graphCard', function () {
             $scope.sellCurrency = {};
             $scope.currencyId2Name = {};
             $scope.categories = [];
+            $scope.highTradeDifferences = [];
             $scope.tradeValues = {
                 low: [],
                 average: [],
@@ -90,18 +91,49 @@ poeTrade.directive('graphCard', function () {
                     series: [
                         {
                             name: 'Low',
-                            data: $scope.tradeValues.low
+                            data: $scope.tradeValues.low,
+                            zIndex: 3,
+                            color: '#90ed7d'
                         },
                         {
                             name: 'Average',
-                            data: $scope.tradeValues.average
+                            data: $scope.tradeValues.average,
+                            zIndex: 2,
+                            color: '#e6ed7d'
                         },
                         {
                             name: 'High',
-                            data: $scope.tradeValues.high
+                            data: $scope.tradeValues.high,
+                            zIndex: 1,
+                            color: 'black'
+                        },
+                        {
+                            type: 'column',
+                            name: 'High Trade Change',
+                            data: $scope.highTradeDifferences,
+                            zIndex: 0,
+                            color: '#7dd4ed'
                         }
                     ]
                 });
+            };
+
+            $scope.getIntervaleDifferencesOnLowTrades = function() {
+                var previousValue;
+                $scope.highTradeDifferences = _.reduce(
+                    $scope.tradeValues.high,
+                    function (arr, lowValue) {
+                        if (!previousValue && previousValue !== 0) {
+                            previousValue = lowValue;
+                            arr.push(0);
+                            return arr;
+                        }
+                        arr.push(previousValue - lowValue);
+                        previousValue = lowValue;
+                        return arr;
+                    },
+                    []
+                );
             };
 
             $scope.populateGraphData = function (requests) {
@@ -111,9 +143,9 @@ poeTrade.directive('graphCard', function () {
                         $scope.tradeValues[key].push(plain_request[key]);
                     });
                 });
+                $scope.getIntervaleDifferencesOnLowTrades();
                 $scope.drawGraph();
             };
-
 
             $scope.getDayTradesForWeek = function () {
                 $scope.categories = [];
