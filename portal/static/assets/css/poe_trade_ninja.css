@@ -29,3 +29,10 @@ body {
 .off-white {
     background-color: #fbfbfb;
 }
+
+@media only screen and (max-device-width: 480px) {
+    /* define mobile styles*/
+    .flat-raised-card {
+        height: 223px !important;
+    }
+}
