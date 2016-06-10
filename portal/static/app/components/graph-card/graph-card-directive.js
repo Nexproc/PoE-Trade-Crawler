@@ -201,11 +201,15 @@ poeTrade.directive('graphCard', function () {
                     $scope.currencies = response.plain();
                     $scope.currencyId2Name = {};
                     // defaults to trading some random currency for Chaos Orbs
-                    var randomCurrencyId = Math.ceil(Math.random() * $scope.currencies.length);
+                    var randomCurrencyId = 4;
+                    while (randomCurrencyId === 4) {
+                        randomCurrencyId = Math.ceil(Math.random() * $scope.currencies.length);
+                    }
                     _.each($scope.currencies, function(currency) {
                         if (currency.id === randomCurrencyId) {
                             $scope.buyCurrency = currency;
-                        } else if (currency.name === 'Chaos Orb') {
+                        }
+                        if (currency.name === 'Chaos Orb') {
                             $scope.sellCurrency = currency;
                         }
                         $scope.currencyId2Name[currency.id] = currency.name;
