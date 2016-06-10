@@ -55,7 +55,7 @@ poeTrade.directive('graphCard', function () {
             $scope.drawGraph = function () {
                 new Highcharts.Chart({
                     chart: {
-                        type: 'line',
+                        type: 'spline',
                         renderTo: $scope.cardId,
                         backgroundColor: '#fbfbfb'
                     },
