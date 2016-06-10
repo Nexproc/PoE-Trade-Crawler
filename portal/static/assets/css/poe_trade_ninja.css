@@ -35,4 +35,7 @@ body {
     .flat-raised-card {
         height: 223px !important;
     }
+    .graph {
+        height: 75%;
+    }
 }
