@@ -92,8 +92,8 @@ poeTrade.directive('graphCard', function () {
                         {
                             name: 'Low',
                             data: $scope.tradeValues.low,
-                            zIndex: 3,
-                            color: '#90ed7d'
+                            zIndex: 1,
+                            color: 'black'
                         },
                         {
                             name: 'Average',
@@ -104,8 +104,8 @@ poeTrade.directive('graphCard', function () {
                         {
                             name: 'High',
                             data: $scope.tradeValues.high,
-                            zIndex: 1,
-                            color: 'black'
+                            zIndex: 3,
+                            color: '#90ed7d'
                         },
                         {
                             type: 'column',
