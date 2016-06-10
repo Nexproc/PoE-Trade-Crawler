@@ -41,8 +41,8 @@ body {
     }
 
     .graph {
-        height: 490px;
-        max-height: 490px;
+        height: 350px;
+        max-height: 350px;
     }
 
     .graph-panel {
