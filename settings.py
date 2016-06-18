@@ -82,7 +82,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'wsgi.application'
 if os.environ.get('PRODUCTION'):
     SECRET_KEY = os.environ.get('SECRET_DJANGO_KEY')
-    DEBUG = False
+    DEBUG = True
 
     import dj_database_url
     DATABASES = {
