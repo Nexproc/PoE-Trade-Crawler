@@ -61,6 +61,6 @@ GITHUB = 'http://www.github.com'
 CURRENT_LEAGUE = "Prophecy"
 ALL_CURRENCY_IDS_STRING = '-'.join([str(key) for key in CURRENCIES.keys()])
 BASE_SITE_URL = "http://currency.poe.trade/search?league={}".format(CURRENT_LEAGUE)
-POE_ITEM_BASE = BASE_SITE_URL + "&online=&want={}&have=" + ALL_CURRENCY_IDS_STRING
-POE_TRADE_FULL = BASE_SITE_URL + "&online=&want={0}&have={0}".format(ALL_CURRENCY_IDS_STRING)
-SMALL_POE_TRADE = BASE_SITE_URL + "&online=&want=1-2-3-4-5&have=1-2-3-4-5"
+POE_ITEM_BASE = BASE_SITE_URL + "&online=x&want={}&have=" + ALL_CURRENCY_IDS_STRING
+POE_TRADE_FULL = BASE_SITE_URL + "&online=x&want={0}&have={0}".format(ALL_CURRENCY_IDS_STRING)
+SMALL_POE_TRADE = BASE_SITE_URL + "&online=x&want=1-2-3-4-5&have=1-2-3-4-5"

@@ -7,3 +7,5 @@ __pycache__/**
 poe_trader/poetrade/
 node_dependencies/
 poe/
+local_settings.py
+static/

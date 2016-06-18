@@ -22,12 +22,6 @@ PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5^!8n^1%5uv_z@%h(^#tcodjowgz#2#3^-m3h5r&u9tjserh@^'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -86,27 +80,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'wsgi.application'
+if os.environ.get('PRODUCTION'):
+    SECRET_KEY = os.environ.get('SECRET_DJANGO_KEY')
+    DEBUG = False
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-# DOCKER_MACHINE_IP_ADDRESS = '192.168.1.100'
-
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'poe',
-    #     'USER': 'poe',
-    #     'PASSWORD': 'poe',
-    #     'HOSTNAME': 'localhost',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': '5432',
-    # },
-}
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+else:
+    from local_settings import *
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -125,8 +108,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_URL = '/portal/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
-
-# Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'portal/static'),
-# )
