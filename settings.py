@@ -82,12 +82,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'wsgi.application'
 if os.environ.get('PRODUCTION'):
     SECRET_KEY = os.environ.get('SECRET_DJANGO_KEY')
-    DEBUG = False
+    DEBUG = True
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES['default'].update(db_from_env)
-
 else:
     from local_settings import *
 
