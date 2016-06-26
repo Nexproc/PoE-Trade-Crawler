@@ -12,7 +12,11 @@ def migrate_to_hourly_trade_aggregations(apps, *_, **__):
     Trade = apps.get_model('trades', 'Trade')
     HourlyTradeAggregate = apps.get_model('trades', 'HourlyTradeAggregate')
 
-    earliest_trade_date = Trade.objects.first().created
+    earliest_trade = Trade.objects.first()
+    if not earliest_trade:
+        return
+
+    earliest_trade_date = earliest_trade.created
     running_date = Trade.objects.last().created
     while running_date >= earliest_trade_date:
         # get all trades for this hour
