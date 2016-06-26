@@ -139,7 +139,7 @@ poeTrade.directive('graphCard', function () {
                 _.each(requests, function (request) {
                     var plain_request = request.plain();
                     _.each(Object.keys($scope.tradeValues), function (key) {
-                        $scope.tradeValues[key].push(plain_request[key]);
+                        $scope.tradeValues[key].push(plain_request[key] || null);
                     });
                 });
                 $scope.getIntervaleDifferencesOnLowTrades();

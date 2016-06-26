@@ -8,4 +8,4 @@ poe_trader/poetrade/
 node_dependencies/
 poe/
 local_settings.py
-static/
+static_files/
