@@ -20,17 +20,6 @@ class TradeViewSet(viewsets.ReadOnlyModelViewSet):
         start_date = datetime.strptime(request.query_params.get('startDate'), '%Y-%m-%dT%H:%M:%S.%fZ')
         # day or hour
         range_type = request.query_params.get('rangeType')
-        # trade_queryset = Trade.objects.all()
-        # trade_queryset = getattr(Trade, 'trades_in_past_{}'.format(range_type))(
-        #     date=start_date,
-        #     queryset=trade_queryset,
-        # )
-        # trade_queryset = Trade.trades_between_currencies(
-        #     buy_currency_id=request.query_params.get('buyCurrencyId'),
-        #     sell_currency_id=request.query_params.get('sellCurrencyId'),
-        #     queryset=trade_queryset,
-        # )
-        # trade_response = Trade.get_highest_average_and_lowest_trade(queryset=trade_queryset)
         if range_type == 'hour':
             hourly_trade_aggregate = HourlyTradeAggregate.objects.filter(
                 buy_currency_id=request.query_params.get('buyCurrencyId'),
