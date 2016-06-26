@@ -103,3 +103,41 @@ class Trade(models.Model):
 
     def __repr__(self):
         return '<{}:{} {}>'.format(self.__class__.__name__, self.pk, str(self))
+
+class HourlyTradeAggregate(models.Model):
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    sell_currency = models.ForeignKey(Currency, related_name='hourly_sells')
+    buy_currency = models.ForeignKey(Currency, related_name='hourly_buys')
+    low_ratio = models.DecimalField(decimal_places=6, max_digits=20)
+    average_ratio = models.DecimalField(decimal_places=6, max_digits=20)
+    high_ratio = models.DecimalField(decimal_places=6, max_digits=20)
+    number_of_trades = models.PositiveIntegerField()
+
+    @classmethod
+    def create_trade_aggregations_for_this_hour(cls):
+        # aggregate trades by currency combinations
+        for buy_currency_id in CURRENCIES.keys():
+            for sell_currency_id in CURRENCIES.keys():
+                # filter trades by buy and sell
+                # create aggregate data dictionary
+                hourly_aggregates = Trade.objects.filter(
+                    buy_currency_id=buy_currency_id,
+                    sell_currency_id=sell_currency_id,
+                ).aggregate(
+                    hour_created=models.Min('created'),
+                    low=models.Min('trade_ratio'),
+                    high=models.Max('trade_ratio'),
+                    average=models.Avg('trade_ratio'),
+                    total=models.Count('id'),
+                )
+
+                # create aggregate data object
+                if hourly_aggregates.get('total'):
+                    new_hourly_object = HourlyTradeAggregate.objects.create(
+                        buy_currency_id=buy_currency_id,
+                        sell_currency_id=sell_currency_id,
+                        low_ratio=hourly_aggregates.get('low'),
+                        average_ratio=hourly_aggregates.get('average'),
+                        high_ratio=hourly_aggregates.get('high'),
+                        number_of_trades=hourly_aggregates.get('total'),
+                    )

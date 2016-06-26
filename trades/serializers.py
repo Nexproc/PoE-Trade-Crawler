@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from trades.models import Trade, Currency
+from trades.models import Trade, Currency, HourlyTradeAggregate
 
 class TradeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,3 +32,29 @@ class CurrencySerializer(serializers.ModelSerializer):
             'id',
             'name',
         )
+
+class HourlyTradeAggregateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HourlyTradeAggregate
+        fields = (
+            'id',
+            'average',
+            'high',
+            'low',
+        )
+
+    average = serializers.SerializerMethodField()
+    high = serializers.SerializerMethodField()
+    low = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_average(obj):
+        return obj.average_ratio
+
+    @staticmethod
+    def get_high(obj):
+        return obj.high_ratio
+
+    @staticmethod
+    def get_low(obj):
+        return obj.low_ratio
