@@ -53,8 +53,6 @@ poeTrade.directive('graphCard', function () {
             ];
 
             $scope.drawGraph = function () {
-                console.log($scope.highTradeDifferences)
-                console.log($scope.tradeValues)
                 new Highcharts.Chart({
                     chart: {
                         type: 'spline',
