@@ -1,0 +1,31 @@
+{
+  "name": "poe_trader",
+  "homepage": "https://github.com/nexproc/PoE-Trade-Crawler",
+  "authors": [
+    "Nexproc <ntitcombe@gmail.com>"
+  ],
+  "description": "",
+  "main": "./",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "highcharts": "^4.2.5",
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.7",
+    "angular-route": "^1.5.7",
+    "jquery": "^3.0.0",
+    "restangular": "^1.5.2",
+    "underscore": "^1.8.3",
+    "font-awesome": "^4.6.3"
+  },
+  "resolutions": {
+    "jquery": "1.9.1 - 2"
+  }
+}
