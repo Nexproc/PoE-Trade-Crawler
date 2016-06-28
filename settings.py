@@ -79,16 +79,24 @@ TEMPLATES = [
     },
 ]
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_bmemcached.memcached.BMemcached',
-        'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
-        'OPTIONS': {
-                    'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
-                    'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
+if os.environ.get('MEMCACHEDCLOUD_SERVERS'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_bmemcached.memcached.BMemcached',
+            'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
+            'OPTIONS': {
+                'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
+                'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
             }
+        }
     }
-}
+else:
+    # Dummy Cache
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
 
 WSGI_APPLICATION = 'wsgi.application'
 IS_DEVELOPMENT = True
