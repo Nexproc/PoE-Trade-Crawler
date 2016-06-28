@@ -16,8 +16,7 @@ module.exports = function(grunt) {
                         'portal/static/assets/bower_components/underscore/underscore.js',
                         'portal/static/assets/bower_components/restangular/dist/restangular.js',
                         'portal/static/app/*.js',
-                        'portal/static/app/common/*.js',
-                        'portal/static/app/components/**/*.js'
+                        'portal/static/app/**/*.js',
                     ]
                 }
             }
