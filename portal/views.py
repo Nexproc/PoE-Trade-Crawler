@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from settings import IS_DEVELOPMENT
 
 # Create your views here.
 
 def landing(request):
-    return render(request, 'landing.html')
+    context = {
+        'DEVELOPMENT': IS_DEVELOPMENT,
+    }
+    return render(request, 'landing.html', context=context)

@@ -9,3 +9,5 @@ node_dependencies/
 poe/
 local_settings.py
 static_files/
+bower_components/
+node_modules/
