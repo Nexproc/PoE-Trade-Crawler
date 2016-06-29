@@ -11,7 +11,7 @@ from trades.models import Trade, HourlyTradeAggregate
 class Crawler:
     def retrieve_and_read_page(self, url):
         parser = TradeParser()
-        parser.getTrades(url)
+        parser.get_trades(url)
         return parser.trades
 
     def process_trade_data(self):
