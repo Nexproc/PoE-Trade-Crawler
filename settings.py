@@ -82,7 +82,7 @@ TEMPLATES = [
 if os.environ.get('MEMCACHEDCLOUD_SERVERS'):
     CACHES = {
         'default': {
-            'BACKEND': 'django_bmemcached.memcached.BMemcached',
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
             'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
             'OPTIONS': {
                 'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),

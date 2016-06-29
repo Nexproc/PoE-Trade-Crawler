@@ -18,7 +18,9 @@ pexpect==4.0.1
 pickleshare==0.7.2
 psycopg2==2.6.1
 ptyprocess==0.5.1
+pylibmc==1.5.1
 python-binary-memcached==0.24.6
+python3-memcached==1.51
 simplegeneric==0.8.1
 six==1.10.0
 stevedore==1.12.0
