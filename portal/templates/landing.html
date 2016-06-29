@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" media="all" href="{% static "assets/bower_components/font-awesome/css/font-awesome.css" %}"/>
         <link rel="stylesheet" type="text/css" media="all" href="{% static "assets/css/poe_trade_ninja.css" %}"/>
     {% else %}
-        <link rel="stylesheet" type="text/css" media="all" href="{% static "compressed/all1606272142.min.css" %}"/>
+        <link rel="stylesheet" type="text/css" media="all" href="{% static "compressed/all.min.css" %}"/>
     {% endif %}
 
     <script type="text/javascript">var CONFIG = {IS_DEBUG: {% if debug %}true{% else %}false{% endif %}};</script>
@@ -42,7 +42,7 @@
         <script src="{% static "app/components/home-page/home-page-directive.js" %}"></script>
         <script src="{% static "app/components/graph-card/graph-card-directive.js" %}"></script>
     {% else %}
-        <script src="{% static "compressed/all1606272142.min.js" %}"></script>
+        <script src="{% static "compressed/all.min.js" %}"></script>
     {% endif %}
     {% block extra_js %}{% endblock %}
 

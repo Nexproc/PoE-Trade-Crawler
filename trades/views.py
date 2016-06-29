@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, response, status
 from rest_framework.decorators import detail_route, list_route
@@ -16,10 +17,16 @@ class TradeViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(methods=['get'])
     def trades_in_date_range(self, request):
-        # work backwards from this date
-        start_date = datetime.strptime(request.query_params.get('startDate'), '%Y-%m-%dT%H:%M:%S.%fZ')
+        # create a date that is easily useable by the cache
+        start_date = datetime.strptime(request.query_params.get('startDate'), '%Y-%m-%dT%H:%M:%S.%fZ').replace(minute=30, second=0)
         # day or hour
         range_type = request.query_params.get('rangeType')
+        # build cache key
+        cache_key = 'trades_in_date_range' + range_type + str(start_date)
+        # check to see if the value is in the cache
+        if cache.get(cache_key):
+            return response.Response(cache.get(cache_key), status=status.HTTP_200_OK)
+
         if range_type == 'hour':
             hourly_trade_aggregate = HourlyTradeAggregate.objects.filter(
                 buy_currency_id=request.query_params.get('buyCurrencyId'),
@@ -31,6 +38,7 @@ class TradeViewSet(viewsets.ReadOnlyModelViewSet):
             return response.Response('not yet implemented', status=status.HTTP_404_NOT_FOUND)
 
         trade_response = HourlyTradeAggregateSerializer(instance=hourly_trade_aggregate).data
+        cache.set(cache_key, trade_response)
         return response.Response(trade_response, status=status.HTTP_200_OK)
 
 
