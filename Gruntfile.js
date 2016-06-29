@@ -6,7 +6,7 @@ module.exports = function(grunt) {
             },
             build: {
                 files: {
-                    "portal/static/compressed/all.min.js": [
+                    "portal/static/compressed/all<%= grunt.template.today('yymmddHHMM') %>.min.js": [
                         'portal/static/assets/bower_components/angular/angular.js',
                         'portal/static/assets/bower_components/jquery/dist/jquery.js',
                         'portal/static/assets/bower_components/bootstrap/dist/js/bootstrap.js',
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         cssmin: {
             dist: {
                 files: {
-                    "portal/static/compressed/all.min.css": [
+                    "portal/static/compressed/all<%= grunt.template.today('yymmddHHMM') %>.min.css": [
                         'portal/static/assets/bower_components/bootstrap/dist/css/bootstrap.min.css',
                         'portal/static/assets/bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
                         'portal/static/assets/bower_components/font-awesome/css/font-awesome.min.css',
