@@ -58,7 +58,7 @@ poeTrade.directive('graphCard', function () {
                         type: 'spline',
                         renderTo: $scope.cardId,
                         backgroundColor: '#fbfbfb',
-                        reflow: false
+                        height: 400
                     },
                     title: {
                         text: 'Buying ' + $scope.sellCurrency.name + ' with ' + $scope.buyCurrency.name,

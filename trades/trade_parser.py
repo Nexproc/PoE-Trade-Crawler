@@ -1,16 +1,18 @@
 from trades.models import Trade
 from html.parser import HTMLParser
-from urllib.request import urlopen
+from urllib.request import urlopen, Request, FancyURLopener
 from core.constants import VALID_CONTENT_TYPES, DATA_TAG_TO_TRADE_METHOD
 from core.utils import do_nothing
+from time import sleep
+import random
 
-# We are going to create a class called TradeParser that inherits some
-# methods from HTMLParser which is why it is passed into the definition
+
+class PoEOpener(FancyURLopener):
+    version = "Mozilla/5.0"
+
 class TradeParser(HTMLParser):
     trades = []
 
-    # This is a function that HTMLParser normally has
-    # but we are adding some functionality to it
     def handle_starttag(self, tag, attrs):
         trade = None
 
@@ -29,15 +31,16 @@ class TradeParser(HTMLParser):
             trade.set_trade_ratio()
             self.trades.append(trade)
 
-    # This is a new function that we are creating to get trades
-    # that our spider() function will call
-    def getTrades(self, url):
-        self.baseUrl = url
+    # function to get trades
+    def get_trades(self, url):
         # Use the urlopen function from the standard Python 3 library
-        response = urlopen(url)
-        # Make sure that we are looking at HTML and not other things that
-        # are floating around on the internet (such as
-        # JavaScript files, CSS, or .PDFs for example)
+        # detection defence and prevent my scraper from creating a huge influx on the server
+        # use request to feign a Mozilla browser
+        opener = PoEOpener()
+        # give my web crawler a 10 minute window to randomly scrape
+        sleep(random.randrange(600))
+        response = opener.open(url)
+        # Make sure that we are looking at HTML and not another file type such as .js, .css, .pdf, etc.
         if VALID_CONTENT_TYPES.get(response.getheader('Content-Type'), False):
             htmlBytes = response.read()
             # Note that feed() handles Strings well, but not bytes
