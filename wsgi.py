@@ -18,5 +18,5 @@ application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
 
 # Fix django closing connection to Caching Service after every request (#11331)
-# from django.core.cache.backends.memcached import BaseMemcachedCache
-# BaseMemcachedCache.close = lambda self, **kwargs: None
+from django.core.cache.backends.memcached import BaseMemcachedCache
+BaseMemcachedCache.close = lambda self, **kwargs: None
