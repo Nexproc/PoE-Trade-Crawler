@@ -4,6 +4,7 @@ decorator==4.0.9
 dj-database-url==0.4.1
 Django==1.9.6
 django-bmemcached==0.2.3
+django-pylibmc==0.6.1
 djangorestframework==3.3.3
 djangorestframework-bulk==0.2.1
 djangorestframework-recursive==0.1.1
