@@ -27,7 +27,7 @@ class TradeViewSet(viewsets.ReadOnlyModelViewSet):
         cache_key = 'trades_in_date_range{}{}{}:{}'.format(
             range_type,
             str(start_date),
-            buy_curreny_id,
+            buy_currency_id,
             sell_currency_id,
         )
         # check to see if the value is in the cache
