@@ -21,7 +21,7 @@ class TradeViewSet(viewsets.ReadOnlyModelViewSet):
         start_date = datetime.strptime(request.query_params.get('startDate'), '%Y-%m-%dT%H:%M:%S.%fZ').replace(minute=0, second=0)
         # day or hour
         range_type = request.query_params.get('rangeType')
-        buy_curreny_id = request.query_params.get('buyCurrencyId')
+        buy_currency_id = request.query_params.get('buyCurrencyId')
         sell_currency_id = request.query_params.get('sellCurrencyId')
         # build cache key
         cache_key = 'trades_in_date_range{}{}{}:{}'.format(
