@@ -18,19 +18,26 @@ class TradeViewSet(viewsets.ReadOnlyModelViewSet):
     @list_route(methods=['get'])
     def trades_in_date_range(self, request):
         # create a date that is easily useable by the cache
-        start_date = datetime.strptime(request.query_params.get('startDate'), '%Y-%m-%dT%H:%M:%S.%fZ').replace(minute=30, second=0)
+        start_date = datetime.strptime(request.query_params.get('startDate'), '%Y-%m-%dT%H:%M:%S.%fZ').replace(minute=0, second=0)
         # day or hour
         range_type = request.query_params.get('rangeType')
+        buy_currency_id = request.query_params.get('buyCurrencyId')
+        sell_currency_id = request.query_params.get('sellCurrencyId')
         # build cache key
-        cache_key = 'trades_in_date_range' + range_type + str(start_date)
+        cache_key = 'trades_in_date_range{}{}{}:{}'.format(
+            range_type,
+            str(start_date),
+            buy_currency_id,
+            sell_currency_id,
+        )
         # check to see if the value is in the cache
         if cache.get(cache_key):
             return response.Response(cache.get(cache_key), status=status.HTTP_200_OK)
 
         if range_type == 'hour':
             hourly_trade_aggregate = HourlyTradeAggregate.objects.filter(
-                buy_currency_id=request.query_params.get('buyCurrencyId'),
-                sell_currency_id=request.query_params.get('sellCurrencyId'),
+                buy_currency_id=buy_currency_id,
+                sell_currency_id=sell_currency_id,
                 created__lte=start_date,
                 created__gt=start_date - timedelta(hours=1),
             ).first()
