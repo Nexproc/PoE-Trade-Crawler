@@ -40,6 +40,7 @@ CURRENCIES = OrderedDict({
     37: "Yriel's Key",
     38: "Inya's Key",
     39: "Volkuur's Key",
+    40: "Offering to the Goddess",
 })
 
 POE_CURRENCY_COUNT = len(CURRENCIES.keys())

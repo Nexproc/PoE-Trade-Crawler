@@ -38,7 +38,7 @@ class TradeParser(HTMLParser):
         # use request to feign a Mozilla browser
         opener = PoEOpener()
         # give my web crawler a 10 minute window to randomly scrape
-        sleep(random.randrange(600))
+        sleep(random.randrange(60))
         response = opener.open(url)
         # Make sure that we are looking at HTML and not another file type such as .js, .css, .pdf, etc.
         if VALID_CONTENT_TYPES.get(response.getheader('Content-Type'), False):
