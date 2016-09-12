@@ -59,7 +59,7 @@ DATA_TAG_TO_TRADE_METHOD = {
 
 NICK = 'http://www.nicktitcombe.com'
 GITHUB = 'http://www.github.com'
-CURRENT_LEAGUE = "Prophecy"
+CURRENT_LEAGUE = "Essence"
 ALL_CURRENCY_IDS_STRING = '-'.join([str(key) for key in CURRENCIES.keys()])
 BASE_SITE_URL = "http://currency.poe.trade/search?league={}".format(CURRENT_LEAGUE)
 POE_ITEM_BASE = BASE_SITE_URL + "&online=x&want={}&have=" + ALL_CURRENCY_IDS_STRING
